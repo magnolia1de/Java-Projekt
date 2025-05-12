@@ -3,5 +3,5 @@
 Do zrobienia:
 - dodanie scenebuilder
 - zrobienie wizualnie tak jak na zdjęciu
-- tworzenie w .xml
+- tworzenie w .fxml
 - przykład -> projekt 2
