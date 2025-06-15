@@ -70,26 +70,38 @@ public class HelloController {
     private void initialize() {
         songTitle.setText("Title");
 
-//        String path=new File("C:/Users/satur/Documents/JAVA-Project/src/main/java/com/example/javaproject/EdSheeranPerfect.mp3").toURI().toString();
-//        String path = String.valueOf(getClass().getResource("/com/example/javaproject/EdSheeranPerfect.mp3"));
-        songs.add("/com/example/javaproject/EdSheeranPerfect.mp3");
-
-        URL mp3 = getClass().getResource("/com/example/javaproject/EdSheeranPerfect.mp3");
-        System.out.println(mp3);
-        if (mp3 == null) {
-            System.out.println("nie znaleziono utworu");
-            return;
-        }
-//        Media media = new Media(mp3.toExternalForm());
+        songs.add("/com/example/javaproject/NextToYou.mp3" + "/com/example/javaproject/EdSheeranPerfect.mp3");
 
         loadMedia(index);
+
     }
 
     private void loadMedia(int index) {
-        String path = songs.get(index);
-        Media media = new Media(new File(path).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
+        String path = "/com/example/javaproject/EdSheeranPerfect.mp3";
+        URL mp3 = getClass().getResource(path);
+        System.out.println("Próbuję załadować plik: " + path);
+        System.out.println("mp3 URL: " + mp3);
+
+        if (mp3 == null) {
+            System.out.println("❌ Nie znaleziono pliku: " + path);
+        } else {
+            try {
+                Media media = new Media(mp3.toExternalForm());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
+                System.out.println("✅ Odtwarzanie rozpoczęte: " + mp3.toExternalForm());
+            } catch (Exception e) {
+                System.out.println("⚠ Błąd MediaPlayer: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
+
+
+
+
+
+
 
 
     @FXML
