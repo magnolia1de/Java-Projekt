@@ -9,6 +9,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 
 import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HelloController {
     @FXML
@@ -60,44 +63,78 @@ public class HelloController {
 
     private MediaPlayer mediaPlayer;
 
+    private List<String> songs = new ArrayList<>();
+    private int index = 0;
+
     @FXML
     private void initialize() {
         songTitle.setText("Title");
 
-        String path=new File("../src/main/resources/EdSheeranPerfect.mp3").toURI().toString();
-        Media media=new Media(path);
+//        String path=new File("C:/Users/satur/Documents/JAVA-Project/src/main/java/com/example/javaproject/EdSheeranPerfect.mp3").toURI().toString();
+//        String path = String.valueOf(getClass().getResource("/com/example/javaproject/EdSheeranPerfect.mp3"));
+        songs.add("/com/example/javaproject/EdSheeranPerfect.mp3");
 
+        URL mp3 = getClass().getResource("/com/example/javaproject/EdSheeranPerfect.mp3");
+        System.out.println(mp3);
+        if (mp3 == null) {
+            System.out.println("nie znaleziono utworu");
+            return;
+        }
+//        Media media = new Media(mp3.toExternalForm());
+
+        loadMedia(index);
+    }
+
+    private void loadMedia(int index) {
+        String path = songs.get(index);
+        Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
     }
 
+
     @FXML
     protected void onPrevoiusButtonClick() {
-        System.out.println("poprzedni");
+        if (mediaPlayer != null) {
+            System.out.println("poprzedni");
+        }
     }
 
     @FXML
     protected void onPlayButtonClick() {
-        System.out.println("odtwarzam");
+        if (mediaPlayer != null) {
+            System.out.println("odtwarzam");
+            mediaPlayer.play();
+        }
     }
 
     @FXML
     protected void onPauseButtonClick() {
-        System.out.println("zatrzymane");
+        if (mediaPlayer != null) {
+            System.out.println("zatrzymane");
+            mediaPlayer.pause();
+        }
     }
 
     @FXML
     protected void onStopButtonClick() {
-        System.out.println("zatrzymane");
+        if (mediaPlayer != null) {
+            System.out.println("zatrzymane");
+            mediaPlayer.pause();
+        }
     }
 
     @FXML
     protected void onNextButtonClick() {
-        System.out.println("następne");
+        if (mediaPlayer != null) {
+            System.out.println("następne");
+        }
     }
 
     @FXML
     protected  void onShuffleButtonClick() {
-        System.out.println("mieszamy");
+        if (mediaPlayer != null) {
+            System.out.println("mieszamy");
+        }
     }
 
 
