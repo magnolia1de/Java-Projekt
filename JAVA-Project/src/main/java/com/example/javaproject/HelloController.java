@@ -8,19 +8,14 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HelloController {
-    @FXML
-    private Label welcomeText;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    private Label welcomeText;
 
     @FXML
     private Text timeText;
@@ -64,57 +59,82 @@ public class HelloController {
     private MediaPlayer mediaPlayer;
 
     private List<String> songs = new ArrayList<>();
+    private List<SongInfo> songInfos = new ArrayList<>();
+
     private int index = 0;
 
     @FXML
     private void initialize() {
-        songTitle.setText("Title");
+        songs.add("/com/example/javaproject/NextToYou.mp3");
+        songs.add("/com/example/javaproject/EdSheeranPerfect.mp3");
+        songs.add("/com/example/javaproject/AlexanderStewartBlame'sOnMe.mp3");
+        songs.add("/com/example/javaproject/AlexanderStewartiwishyoucheated.mp3");
 
-        songs.add("/com/example/javaproject/NextToYou.mp3" + "/com/example/javaproject/EdSheeranPerfect.mp3");
+        songInfos.add(new SongInfo("Next To You", "320", "44", "Stereo"));
+        songInfos.add(new SongInfo("Perfect", "256", "44", "Stereo"));
+        songInfos.add(new SongInfo("Blame Is On Me", "320", "44", "Stereo"));
+        songInfos.add(new SongInfo("I Wish You Cheatad", "192", "44", "Stereo"));
 
         loadMedia(index);
-
     }
 
     private void loadMedia(int index) {
-        String path = "/com/example/javaproject/EdSheeranPerfect.mp3";
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+
+        String path = songs.get(index);
         URL mp3 = getClass().getResource(path);
-        System.out.println("Próbuję załadować plik: " + path);
-        System.out.println("mp3 URL: " + mp3);
 
         if (mp3 == null) {
             System.out.println("❌ Nie znaleziono pliku: " + path);
-        } else {
-            try {
-                Media media = new Media(mp3.toExternalForm());
-                mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.play();
-                System.out.println("✅ Odtwarzanie rozpoczęte: " + mp3.toExternalForm());
-            } catch (Exception e) {
-                System.out.println("⚠ Błąd MediaPlayer: " + e.getMessage());
-                e.printStackTrace();
-            }
+            return;
+        }
+
+        try {
+            Media media = new Media(mp3.toExternalForm());
+            mediaPlayer = new MediaPlayer(media);
+
+            SongInfo info = songInfos.get(index);
+            songTitle.setText(info.getTitle());
+            bitrateText.setText(info.getBitrate());
+            mixrateText.setText(info.getSampleRate());
+            monoText.setText(info.getChannels());
+
+            mediaPlayer.setOnReady(() -> {
+                double durationSeconds = media.getDuration().toSeconds();
+                timeText.setText(String.format("Czas: 0.0 / %.1f s", durationSeconds));
+            });
+
+            mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+                double elapsed = newTime.toSeconds();
+                double total = mediaPlayer.getTotalDuration().toSeconds();
+                timeText.setText(String.format("Czas: %.1f / %.1f s", elapsed, total));
+            });
+
+            volumeBar.valueProperty().addListener((obs, oldVal, newVal) -> {
+                mediaPlayer.setVolume(newVal.doubleValue() / 100.0);
+            });
+
+            mediaPlayer.play();
+
+        } catch (Exception e) {
+            System.out.println("⚠ Błąd MediaPlayer: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-
-
-
-
-
-
-
     @FXML
-    protected void onPrevoiusButtonClick() {
+    protected void onPreviousButtonClick() {
         if (mediaPlayer != null) {
-            System.out.println("poprzedni");
+            index = (index - 1 + songs.size()) % songs.size();
+            loadMedia(index);
         }
     }
 
     @FXML
     protected void onPlayButtonClick() {
         if (mediaPlayer != null) {
-            System.out.println("odtwarzam");
             mediaPlayer.play();
         }
     }
@@ -122,7 +142,6 @@ public class HelloController {
     @FXML
     protected void onPauseButtonClick() {
         if (mediaPlayer != null) {
-            System.out.println("zatrzymane");
             mediaPlayer.pause();
         }
     }
@@ -130,24 +149,43 @@ public class HelloController {
     @FXML
     protected void onStopButtonClick() {
         if (mediaPlayer != null) {
-            System.out.println("zatrzymane");
-            mediaPlayer.pause();
+            mediaPlayer.stop();
         }
     }
 
     @FXML
     protected void onNextButtonClick() {
         if (mediaPlayer != null) {
-            System.out.println("następne");
+            index = (index + 1) % songs.size();
+            loadMedia(index);
         }
     }
 
     @FXML
-    protected  void onShuffleButtonClick() {
+    protected void onShuffleButtonClick() {
         if (mediaPlayer != null) {
-            System.out.println("mieszamy");
+            index = (int) (Math.random() * songs.size());
+            loadMedia(index);
         }
     }
 
+    // Klasa wewnętrzna dla danych o utworze
+    public static class SongInfo {
+        private final String title;
+        private final String bitrate;
+        private final String sampleRate;
+        private final String channels;
 
+        public SongInfo(String title, String bitrate, String sampleRate, String channels) {
+            this.title = title;
+            this.bitrate = bitrate;
+            this.sampleRate = sampleRate;
+            this.channels = channels;
+        }
+
+        public String getTitle() { return title; }
+        public String getBitrate() { return bitrate; }
+        public String getSampleRate() { return sampleRate; }
+        public String getChannels() { return channels; }
+    }
 }

@@ -7,12 +7,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="220.0" prefWidth="689.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaproject.HelloController">
-    <Button fx:id="previousSong" layoutX="14.0" layoutY="164.0" mnemonicParsing="false" onAction="#onPrevoiusButtonClick" prefHeight="43.0" prefWidth="52.0" text="|&lt;" />
-    <Button fx:id="playSong" layoutX="66.0" layoutY="164.0" mnemonicParsing="false" onAction="#onPlayButtonClick" prefHeight="43.0" prefWidth="52.0" text="&gt;" />
-    <Button fx:id="pauseSong" layoutX="118.0" layoutY="164.0" mnemonicParsing="false" onAction="#onPauseButtonClick" prefHeight="43.0" prefWidth="52.0" text="| |" />
-    <Button fx:id="stopSong" layoutX="170.0" layoutY="164.0" mnemonicParsing="false" onAction="#onStopButtonClick" prefHeight="43.0" prefWidth="52.0" text="[]" />
-    <Button fx:id="nextSong" layoutX="222.0" layoutY="164.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="43.0" prefWidth="52.0" text="&gt;|" />
+<AnchorPane prefHeight="220.0" prefWidth="689.0" style="-fx-background-color: #1b1b1b;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaproject.HelloController">
+    <Button fx:id="previousSong" layoutX="14.0" layoutY="164.0" mnemonicParsing="false" onAction="#onPreviousButtonClick" prefHeight="43.0" prefWidth="52.0" text="⏮" textFill="#3f3f3f" />
+    <Button fx:id="playSong" layoutX="66.0" layoutY="164.0" mnemonicParsing="false" onAction="#onPlayButtonClick" prefHeight="43.0" prefWidth="52.0" text="▶" textFill="#3f3f3f" />
+    <Button fx:id="pauseSong" layoutX="118.0" layoutY="164.0" mnemonicParsing="false" onAction="#onPauseButtonClick" prefHeight="43.0" prefWidth="52.0" text="⏸" />
+    <Button fx:id="stopSong" layoutX="170.0" layoutY="164.0" mnemonicParsing="false" onAction="#onStopButtonClick" prefHeight="43.0" prefWidth="52.0" text="⏹" />
+    <Button fx:id="nextSong" layoutX="222.0" layoutY="164.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="43.0" prefWidth="52.0" text="⏭" />
     <Text fill="WHITE" layoutX="273.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SONG" wrappingWidth="52.0">
         <font>
             <Font size="15.0" />
@@ -20,7 +20,7 @@
     </Text>
     <Pane layoutX="18.0" layoutY="20.0" prefHeight="131.0" prefWidth="231.0" style="-fx-background-color: black;">
         <children>
-            <Text fx:id="timeText" fill="#77ff00" layoutX="26.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="179.47002410888672">
+            <Text fx:id="timeText" fill="LIME" layoutX="26.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="179.47002410888672">
                 <font>
                     <Font size="27.0" />
                 </font>
@@ -44,7 +44,7 @@
     </Pane>
     <Pane layoutX="363.0" layoutY="78.0" prefHeight="36.0" prefWidth="64.0" style="-fx-background-color: black;">
         <children>
-            <Text fx:id="bitrateText" fill="#00ff11" layoutX="17.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="29.33331298828125" />
+            <Text fx:id="bitrateText" fill="LIME" layoutX="17.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="29.33331298828125" />
             <Text fill="WHITE" layoutX="73.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="kbps" wrappingWidth="64.0">
                 <font>
                     <Font size="15.0" />
@@ -59,7 +59,7 @@
     </Pane>
     <Pane layoutX="574.0" layoutY="78.0" prefHeight="36.0" prefWidth="64.0" style="-fx-background-color: black;">
         <children>
-            <Text fx:id="mixrateText" fill="#00ff11" layoutX="17.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="29.33331298828125" />
+            <Text fx:id="mixrateText" fill="LIME" layoutX="6.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="52.0" />
             <Text fill="WHITE" layoutX="74.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="kHz" wrappingWidth="29.33331298828125">
                 <font>
                     <Font size="15.0" />
@@ -67,7 +67,7 @@
             </Text>
         </children>
     </Pane>
-    <ScrollBar fx:id="volumeBar" layoutX="345.0" layoutY="127.0" prefHeight="28.0" prefWidth="187.0" />
+    <ScrollBar fx:id="volumeBar" layoutX="345.0" layoutY="127.0" prefHeight="28.0" prefWidth="187.0" value="100.0" />
     <Text fill="WHITE" layoutX="548.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="mono" wrappingWidth="52.0">
         <font>
             <Font size="15.0" />
@@ -75,9 +75,9 @@
     </Text>
     <Pane layoutX="600.0" layoutY="123.0" prefHeight="36.0" prefWidth="64.0" style="-fx-background-color: black;">
         <children>
-            <Text fx:id="monoText" fill="#00ff11" layoutX="11.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="42.13677215576172" />
+            <Text fx:id="monoText" fill="LIME" layoutX="11.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="42.13677215576172" />
         </children>
     </Pane>
     <Button fx:id="shuffleSong" layoutX="309.0" layoutY="168.0" mnemonicParsing="false" onAction="#onShuffleButtonClick" prefHeight="36.0" prefWidth="171.0" text="SHUFFLE" />
-    <Button fx:id="shuffleSongTwo" layoutX="480.0" layoutY="168.0" mnemonicParsing="false" onAction="#onShuffleButtonClick" prefHeight="36.0" prefWidth="52.0" text=")" />
+    <Button fx:id="shuffleSongTwo" layoutX="480.0" layoutY="168.0" mnemonicParsing="false" onAction="#onShuffleButtonClick" prefHeight="36.0" prefWidth="52.0" text="🔀" />
 </AnchorPane>
